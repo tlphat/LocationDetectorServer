@@ -9,13 +9,13 @@
 - If not, install it using pip install command. Otherwise, we skip this step.  
 `pip install virtualenv`
 - Create the new virtual environment, then activate it.  
-`virtualenv venv`
+`virtualenv venv`  
 `venv\Scripts\activate`
 - Then, we install Django and Pillow.  
-`python -m pip install django`
+`python -m pip install django`  
 `python -m pip install pillow`
 - Then, we can go to folder **myproject** and run the server.  
-`cd myproject`
+`cd myproject`  
 `python manage.py runserver 0.0.0.0:8000`
 - To stop the server, press Ctrl+C.  
 - To deactivate the virtual environment: `deactivate`
