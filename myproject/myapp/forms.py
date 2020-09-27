@@ -5,4 +5,4 @@ class AndroidForm(forms.ModelForm):
 
     class Meta:
         model = ImageAndroid
-        fields = ['image']
+        fields = ['image', 'angle', 'longitude', 'latitude']
