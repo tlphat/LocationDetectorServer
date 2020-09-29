@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from myapp.forms import AndroidForm
 from django.views.decorators.csrf import csrf_exempt
 import base64
+import json
 
 # Create your views here.
 # def home(request):
@@ -42,3 +43,9 @@ def retrieve_image(request):
 
 def success(request): 
     return HttpResponse('successfully uploaded')
+
+def retrieve_location_json(request):
+    data = {}
+    with open('res/location.json') as json_file:
+        data = json.load(json_file)
+    return HttpResponse(json.dumps(data), content_type="application/json")

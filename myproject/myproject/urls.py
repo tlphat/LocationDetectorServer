@@ -25,6 +25,7 @@ urlpatterns = [
     # url(r'^add', myapp_views.add, name='home'),
     path('android_upload', myapp_views.android_image_view, name='android_upload'),
     path('android_download', myapp_views.retrieve_image, name='android_download'),
+    path('get_location_json', myapp_views.retrieve_location_json, name='get_location_json')
 ]
 
 if settings.DEBUG:
