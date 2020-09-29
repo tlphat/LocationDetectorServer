@@ -1,8 +1,8 @@
 from django import forms 
-from myapp.models import ImageAndroid
+from myapp.models import ImageNode
 
 class AndroidForm(forms.ModelForm):
 
     class Meta:
-        model = ImageAndroid
+        model = ImageNode
         fields = ['image', 'angle', 'longitude', 'latitude']

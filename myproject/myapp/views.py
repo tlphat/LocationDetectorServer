@@ -1,44 +1,48 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse, JsonResponse
 from myapp.forms import AndroidForm
 from django.views.decorators.csrf import csrf_exempt
-import base64
+
+from myapp.models import ServerInfo, ImageNode
 
 # Create your views here.
 # def home(request):
 #     return HttpResponse("Hello World")
 
-# def add(request):
-#     if request.method == 'GET':
-#         a = float(request.GET['a'])
-#         b = float(request.GET['b'])
-#         c = a + b 
-#         return HttpResponse(str(c))
-#     else:
-#         return HttpResponse('method not supported')
+def get_features(request):
+    server_info = ServerInfo.objects.all().first()
+    return JsonResponse({"version": str(server_info.version)})
 
 @csrf_exempt
-def android_image_view(request):
-    if request.method == 'POST':
+def images_handler(request):
+    if request.method == 'GET':
+        all_images = ImageNode.objects.all()
+        response = []
+        for image in all_images:
+            response.append({"id": image.id})
+        return JsonResponse(response, safe=False)
+    elif request.method == 'POST':
         form = AndroidForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponse('successfully uploaded')
-        return HttpResponse('form error')
+            return JsonResponse({"id": ImageNode.objects.all().last().id}, status=201)
+        print("Upload form error!")
+        return HttpResponse('form error', status=400)
     else:
-        return HttpResponse('method not supported')
+        return HttpResponse('Method Not Supported', status=405)
 
-def retrieve_image(request):
+@csrf_exempt
+def images_detail(request, id):
     if request.method == 'GET':
-        name = 'media/images/' + str(request.GET['name'])
-        image_data = ''
-        with open(name, "rb") as image_file:
-            image_data = base64.b64encode(image_file.read()).decode('utf-8')
-        image_file.close()
-        return HttpResponse(image_data)
+        print(f"Requested image {id}")
+        try:
+            image = ImageNode.objects.get(id=id)
+        except ImageNode.DoesNotExist:
+            return HttpResponse("Image Not Found!", status=404)
+        return FileResponse(image.image)
     else:
-        return HttpResponse('method not supported')
+        return HttpResponse('Method Not Supported', status=405)
 
 def success(request): 
     return HttpResponse('successfully uploaded')

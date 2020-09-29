@@ -16,15 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from myapp import views as myapp_views
+from myapp import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # url(r'^$', myapp_views.home, name='home'),
-    # url(r'^add', myapp_views.add, name='home'),
-    path('android_upload', myapp_views.android_image_view, name='android_upload'),
-    path('android_download', myapp_views.retrieve_image, name='android_download'),
+    # url(r'^$', views.home, name='home'),
+    # url(r'^add', views.add, name='home'),
+    path('features', views.get_features, name='features'),
+    path('images', views.images_handler, name='images'),
+    path('images/<int:id>', views.images_detail, name='images_detail'),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
