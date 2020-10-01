@@ -27,6 +27,7 @@ urlpatterns = [
     path('images', views.images_handler, name='images'),
     path('images/<int:id>', views.images_detail, name='images_detail'),
     path('admin/', admin.site.urls),
+    path('get_location_json', myapp_views.retrieve_location_json, name='get_location_json')
 ]
 
 if settings.DEBUG:

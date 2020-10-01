@@ -3,8 +3,8 @@ from django.shortcuts import redirect
 from django.http import HttpResponse, FileResponse, JsonResponse
 from myapp.forms import AndroidForm
 from django.views.decorators.csrf import csrf_exempt
-
 from myapp.models import ServerInfo, ImageNode
+import json
 
 # Create your views here.
 # def home(request):
@@ -46,3 +46,9 @@ def images_detail(request, id):
 
 def success(request): 
     return HttpResponse('successfully uploaded')
+
+def retrieve_location_json(request):
+    data = {}
+    with open('res/location.json') as json_file:
+        data = json.load(json_file)
+    return HttpResponse(json.dumps(data), content_type="application/json")
