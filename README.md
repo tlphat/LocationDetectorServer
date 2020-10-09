@@ -14,6 +14,7 @@
 - Then, we install Django and Pillow.  
 `python -m pip install django`  
 `python -m pip install pillow`
+- Install DELF following the instructions here https://github.com/tensorflow/models/blob/master/research/delf/INSTALL_INSTRUCTIONS.md
 - Then, we can go to folder **myproject** and run the server.  
 `cd myproject`  
 `python manage.py runserver 0.0.0.0:8000`
