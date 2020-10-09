@@ -1,0 +1,8 @@
+{% block content %}
+    <h2>Images</h2>
+    <ul>
+        {% for image in object_list %}
+            <li>{{ image.image }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

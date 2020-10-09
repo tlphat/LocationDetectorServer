@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from myapp import views
 from django.conf import settings
 from django.conf.urls.static import static
+
+from myapp import views
 
 urlpatterns = [
     # url(r'^$', views.home, name='home'),
@@ -26,8 +27,10 @@ urlpatterns = [
     path('features', views.get_features, name='features'),
     path('images', views.images_handler, name='images'),
     path('images/<int:id>', views.images_detail, name='images_detail'),
+    path('images/<int:id>/location', views.find_location, name='images_find_location'),
     path('admin/', admin.site.urls),
-    path('get_location_json', myapp_views.retrieve_location_json, name='get_location_json')
+    path('view_images', views.ImageList.as_view(template_name='imagenode_list.html')),
+    path('get_location_json', views.retrieve_location_json, name='get_location_json')
 ]
 
 if settings.DEBUG:
